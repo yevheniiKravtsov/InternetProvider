@@ -26,3 +26,8 @@
 .registration-form h2 {
         margin: 0 0 15px;
     }
+ .dropdown-menu {
+  	min-width:inherit;
+  	padding-bottom: 0px;
+    padding-top: 0px;
+}

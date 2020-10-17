@@ -1,13 +1,9 @@
 <!DOCTYPE html>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-<style>
-        <%@include file="/css/style.css" %>
-</style>
-
+<title>Internet Provider</title>
 <meta charset="utf-8">
 </head>
 <body>
