@@ -25,12 +25,15 @@ public class LoginCommand implements Command{
         for(User user : userList) {
         	if(login.equals(user.getLogin()) && password.equals(user.getPassword())) {
                 if (user.getRole().equals(User.ROLE.ADMIN)){
+                	CommandUtility.setUserRole(request, User.ROLE.ADMIN, login);
                     return "redirect:/admin/adminbasis.jsp";
                 } else if(user.getRole().equals(User.ROLE.USER)) {
+                	CommandUtility.setUserRole(request, User.ROLE.USER, login);
                     return "redirect:/user/userbasis.jsp";
                 } 
         	}
         }
+        CommandUtility.setUserRole(request, User.ROLE.UNKNOWN, login);
         return "/login.jsp";
     }
 

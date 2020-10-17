@@ -12,17 +12,18 @@
 <body>
 <jsp:include page="header.jsp"/>
 <div class="registration-form">
-    <form action="/examples/actions/confirmation.php" method="post">
+    <form method="post" action="${pageContext.request.contextPath}/registration">
         <h2 class="text-center">Registration</h2>       
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Enter username">
+            <input type="text" class="form-control" placeholder="Enter username" name="login">
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Enter password">
+            <input type="password" class="form-control" placeholder="Enter password" name="password">
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Confirm password">
+            <input type="password" class="form-control" placeholder="Confirm password" name="confirmPassword">
         </div>
+        <small style="color:red">${message}</small>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Submit</button>
         </div>           

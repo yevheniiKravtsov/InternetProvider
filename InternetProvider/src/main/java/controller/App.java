@@ -25,6 +25,7 @@ public class App
         user.setLogin("xxxxx");
         dao.update(user);
         System.out.println(dao.findById(3));
+        
     }
 }
 

@@ -4,6 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
+<style>
+        <%@include file="/css/style.css" %>
+</style>
+
 <meta charset="utf-8">
 </head>
 <body>
@@ -18,6 +22,7 @@
         <div class="form-group">
             <input type="password" class="form-control" placeholder="Password" name="password">
         </div>
+        <small style="color:red">${message}</small>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Log in</button>
         </div>          

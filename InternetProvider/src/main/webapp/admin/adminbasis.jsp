@@ -1,12 +1,13 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>ADMIN THE BASIS</title>
+    <title>Internet Provider</title>
 </head>
 <body>
+<jsp:include page="adminHeader.jsp"/>
+<h2>Hello ADMIN!</h2>
 
-<h1>Hello ADMIN!</h1>
-<a href="${pageContext.request.contextPath}/logout">Logout</a>
 </body>
 </html>

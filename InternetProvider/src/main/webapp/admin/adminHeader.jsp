@@ -19,11 +19,11 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="${pageContext.request.contextPath}/user/userbasis.jsp">Internet Provider</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/adminbasis.jsp">Internet Provider</a>
     </div>
     <ul class="navbar-nav">
     <li class="nav-item">
-    	<form class="form-inline" action="${pageContext.request.contextPath}/user/logout">
+    	<form class="form-inline" action="${pageContext.request.contextPath}/admin/logout">
     	 	<button class="btn btn-primary" type="submit">Logout</button>
   		</form>
     </li>

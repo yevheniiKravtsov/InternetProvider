@@ -13,6 +13,7 @@ import controller.command.Command;
 import controller.command.ExceptionCommand;
 import controller.command.LogOutCommand;
 import controller.command.LoginCommand;
+import controller.command.RegistrationCommand;
 
 public class Servlet extends HttpServlet {
     private Map<String, Command> commands = new HashMap<String, Command>();
@@ -25,6 +26,7 @@ public class Servlet extends HttpServlet {
 			}});
         commands.put("login", new LoginCommand());
         commands.put("logout", new LogOutCommand());
+        commands.put("registration", new RegistrationCommand());
         commands.put("exception" , new ExceptionCommand());
     }
 
@@ -43,7 +45,13 @@ public class Servlet extends HttpServlet {
             throws ServletException, IOException {
         String path = request.getRequestURI();
         System.out.println(path);
-        path = path.replaceAll("/InternetProvider/" , "");
+        if(path.contains("/admin/")) {
+        	path = path.replaceAll("/InternetProvider/admin/" , "");
+        }else if(path.contains("/user/")) {
+        	path = path.replaceAll("/InternetProvider/user/" , "");
+        }else {
+        	path = path.replaceAll("/InternetProvider/" , "");
+        } 
         System.out.println(path);
         Command command = commands.get(path);
         String page = command.execute(request);
