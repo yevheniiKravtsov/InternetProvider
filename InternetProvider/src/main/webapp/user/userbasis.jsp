@@ -7,7 +7,7 @@
 </head>
 <body>
 <jsp:include page="userHeader.jsp"/>
-<h2>Hello USER!</h2>
+<h2>Hello ${user.getId()}!</h2>
 
 </body>
 </html>

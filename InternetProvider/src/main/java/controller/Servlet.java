@@ -9,16 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.command.AdminProfileCommand;
 import controller.command.Command;
 import controller.command.ConfirmUserCommand;
 import controller.command.CreateUserCommand;
 import controller.command.DeleteUserCommand;
+import controller.command.EditAdminCommand;
+import controller.command.EditUserCommand;
 import controller.command.ExceptionCommand;
 import controller.command.GetAdminsCommand;
 import controller.command.GetUsersCommand;
 import controller.command.LogOutCommand;
 import controller.command.LoginCommand;
 import controller.command.RegistrationCommand;
+import controller.command.RemoveAdminProfileCommand;
+import controller.command.RemoveUserProfileCommand;
+import controller.command.UserProfileCommand;
 
 public class Servlet extends HttpServlet {
     private Map<String, Command> commands = new HashMap<String, Command>();
@@ -38,6 +44,14 @@ public class Servlet extends HttpServlet {
         commands.put("confirmUser" , new ConfirmUserCommand());
         commands.put("deleteUser" , new DeleteUserCommand());
         commands.put("createUser" , new CreateUserCommand());
+        commands.put("userProfile" , new UserProfileCommand());
+        commands.put("editUser" , new EditUserCommand());
+        commands.put("removeUserProfile" , new RemoveUserProfileCommand());
+        commands.put("adminProfile" , new AdminProfileCommand());
+        commands.put("editAdmin" , new EditAdminCommand());
+        commands.put("removeAdminProfile" , new RemoveAdminProfileCommand());
+        
+        
     }
 
     public void doGet(HttpServletRequest request,

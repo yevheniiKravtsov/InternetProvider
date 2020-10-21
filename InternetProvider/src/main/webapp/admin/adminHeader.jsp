@@ -31,6 +31,11 @@
   		</form>
     </li>
     <li class="nav-item">
+    	<form class="form-inline" action="${pageContext.request.contextPath}/admin/adminProfile">
+    	 	<button class="btn btn-primary" type="submit">My profile</button>
+  		</form>
+    </li>
+    <li class="nav-item">
     	<form class="form-inline" action="${pageContext.request.contextPath}/admin/logout">
     	 	<button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
   		</form>

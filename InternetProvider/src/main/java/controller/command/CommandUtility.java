@@ -14,5 +14,9 @@ class CommandUtility {
 		context.setAttribute("login", login);
 		session.setAttribute("role", role);
 	}
+	static void setUserAsAttribute(HttpServletRequest request, User user) {
+		HttpSession session = request.getSession();
+		session.setAttribute("user", user);
+	}
 
 }
