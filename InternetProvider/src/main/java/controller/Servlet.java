@@ -10,7 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controller.command.Command;
+import controller.command.ConfirmUserCommand;
+import controller.command.CreateUserCommand;
+import controller.command.DeleteUserCommand;
 import controller.command.ExceptionCommand;
+import controller.command.GetAdminsCommand;
+import controller.command.GetUsersCommand;
 import controller.command.LogOutCommand;
 import controller.command.LoginCommand;
 import controller.command.RegistrationCommand;
@@ -28,6 +33,11 @@ public class Servlet extends HttpServlet {
         commands.put("logout", new LogOutCommand());
         commands.put("registration", new RegistrationCommand());
         commands.put("exception" , new ExceptionCommand());
+        commands.put("users" , new GetUsersCommand());
+        commands.put("admins" , new GetAdminsCommand());
+        commands.put("confirmUser" , new ConfirmUserCommand());
+        commands.put("deleteUser" , new DeleteUserCommand());
+        commands.put("createUser" , new CreateUserCommand());
     }
 
     public void doGet(HttpServletRequest request,

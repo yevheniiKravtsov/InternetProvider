@@ -17,6 +17,7 @@ public class LoginCommand implements Command{
         String password = request.getParameter("password");
 
         if(login == null || login.equals("") || password == null || password.equals("")  ){
+        	request.setAttribute("message", "You have empty fields.");
             return "/login.jsp";
         }        
         DaoFactory factory = DaoFactory.getInstance();
@@ -28,12 +29,19 @@ public class LoginCommand implements Command{
                 	CommandUtility.setUserRole(request, User.ROLE.ADMIN, login);
                     return "redirect:/admin/adminbasis.jsp";
                 } else if(user.getRole().equals(User.ROLE.USER)) {
-                	CommandUtility.setUserRole(request, User.ROLE.USER, login);
-                    return "redirect:/user/userbasis.jsp";
-                } 
+                	if(user.getIsConfirmed()) {
+                		CommandUtility.setUserRole(request, User.ROLE.USER, login);
+                		return "redirect:/user/userbasis.jsp";
+                	}
+                	else {
+                		request.setAttribute("message", "Your account is not confirmed by admin. Try again later");
+                		return "/login.jsp";
+                	}
+                }   
         	}
         }
         CommandUtility.setUserRole(request, User.ROLE.UNKNOWN, login);
+        request.setAttribute("message", "Wrong login or password.");
         return "/login.jsp";
     }
 

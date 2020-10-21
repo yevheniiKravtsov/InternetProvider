@@ -5,15 +5,17 @@ public class User {
 	private int id;
     private String login;
     private String password;
+    private boolean isConfirmed;
     public enum ROLE {
         USER, ADMIN, UNKNOWN
     }
     private ROLE role;
 
-    public User(String login, String password, ROLE role) {
+    public User(String login, String password, ROLE role, boolean isConfirmed) {
 		this.login = login;
 		this.password = password;
 		this.role = role;
+		this.isConfirmed = isConfirmed;
 	}
 
 	public int getId() {
@@ -23,6 +25,14 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public boolean getIsConfirmed() {
+		return isConfirmed;
+	}
+
+	public void setIsConfirmed(boolean isConfirmed) {
+		this.isConfirmed = isConfirmed;
+	}
+
 
 	public String getLogin() {
 		return login;
@@ -49,7 +59,8 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "[id=" + id + ", login=" + login + ", password=" + password + ", role=" + role + "]\n";
+		return "[id=" + id + ", login=" + login + ", password=" + password + ","
+				+ " role=" + role + ", isConfirmed= " + isConfirmed +"]\n";
 	}
 
 

@@ -26,6 +26,11 @@
     </div>
     <ul class="navbar-nav">
     <li class="nav-item">
+    	<form class="form-inline" action="${pageContext.request.contextPath}/admin/users">
+    	 	<button class="btn btn-primary" type="submit">Users</button>
+  		</form>
+    </li>
+    <li class="nav-item">
     	<form class="form-inline" action="${pageContext.request.contextPath}/admin/logout">
     	 	<button class="btn btn-primary" type="submit"><fmt:message key="logout"/></button>
   		</form>
