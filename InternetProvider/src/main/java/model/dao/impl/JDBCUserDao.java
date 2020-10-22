@@ -2,7 +2,7 @@ package model.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import model.dao.UserDao;
+import model.entity.Service;
+import model.entity.Tarif;
 import model.entity.User;
 
 public class JDBCUserDao implements UserDao {
@@ -42,6 +44,59 @@ public class JDBCUserDao implements UserDao {
 		}		
 	}
 
+	
+	public void insertIntoUsersTarifs(int userId, int tarifId) {
+		String sql= "Insert into users_tarifs (user_id, tarif_id) Values (?,?)";
+    	try(PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+    		preparedStatement.setInt(1,userId);
+    		preparedStatement.setInt(2,tarifId);
+    		preparedStatement.executeUpdate();
+    	} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	public void removeFromUsersTarifs(int userId, int tarifId) {
+		String sql= "Delete from users_tarifs where user_id = ? AND tarif_id=?";
+    	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+    		preparedStatement.setInt(1,userId);
+    		preparedStatement.setInt(2,tarifId);
+    		preparedStatement.executeUpdate();
+    	} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public User findTarifsForUser(User user) {
+		
+		List<Tarif> list = new ArrayList<>();
+    	String sql= "select * from users_tarifs inner join tarifs on users_tarifs.tarif_id =tarifs.id\r\n" + 
+    			" inner join services on tarifs.service_id= services.id where user_id = ?;";
+    	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+    		preparedStatement.setInt(1,user.getId());
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()){
+				int id = resultSet.getInt(3);
+				String name = resultSet.getString(4);
+				String description = resultSet.getString(5);
+				BigDecimal price = resultSet.getBigDecimal(6);
+				int servId  = resultSet.getInt(8);
+				String servName  = resultSet.getString(9);
+				Service service = new Service(servName);
+				service.setId(servId);
+				Tarif tarif = new Tarif(name, description, price);
+				tarif.setId(id);
+				tarif.setService(service);
+				list.add(tarif);
+			}
+			user.setTarifList(list);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return user;
+	}
+	
 	@Override//Optinal todo!
 	public User findById(int id) {
 		User user = null;

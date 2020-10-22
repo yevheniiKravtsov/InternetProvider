@@ -39,23 +39,23 @@ public class AuthFilter implements Filter{
 	        	if(session.getAttribute("role").equals(User.ROLE.ADMIN)) {
 	        		chain.doFilter(request,response);
 	        	}else if(session.getAttribute("role").equals(User.ROLE.USER)) {
-	        		res.sendRedirect(req.getContextPath() + "/user/userbasis.jsp");
+	        		res.sendRedirect(req.getContextPath() + "/user/userMain");
 	        	}else {
-	        		res.sendRedirect(req.getContextPath() + "/index.jsp");
+	        		res.sendRedirect(req.getContextPath() + "/main");
 	        	}
 	        }else if(req.getRequestURI().contains("/user/")) {
 	        	if(session.getAttribute("role").equals(User.ROLE.ADMIN)) {
-	        		res.sendRedirect(req.getContextPath() + "/admin/adminbasis.jsp");
+	        		res.sendRedirect(req.getContextPath() + "/admin/adminMain");
 	        	}else if(session.getAttribute("role").equals(User.ROLE.USER)) {
 	        		chain.doFilter(request,response);
 	        	}else {
-	        		res.sendRedirect(req.getContextPath() + "/index.jsp");
+	        		res.sendRedirect(req.getContextPath() + "/main");
 	        	}
 	        }else {
 	        	if(session.getAttribute("role").equals(User.ROLE.ADMIN)) {
-	        		res.sendRedirect(req.getContextPath() + "/admin/adminbasis.jsp");
+	        		res.sendRedirect(req.getContextPath() + "/admin/adminMain");
 	        	}else if(session.getAttribute("role").equals(User.ROLE.USER)) {
-	        		res.sendRedirect(req.getContextPath() + "/user/userbasis.jsp");
+	        		res.sendRedirect(req.getContextPath() + "/user/userMain");
 	        	}else {
 	        		chain.doFilter(request,response);
 	        	}

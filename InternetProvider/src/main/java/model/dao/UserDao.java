@@ -10,4 +10,11 @@ public interface UserDao extends GenericDao<User> {
 	List<User> findAllByRole(ROLE user);
 
 	List<User> findAllByConfirmation(boolean b);
+
+	User findTarifsForUser(User user);
+
+	void insertIntoUsersTarifs(int id, int tarifId);
+
+	void removeFromUsersTarifs(int id, int tarifId);
+
 }

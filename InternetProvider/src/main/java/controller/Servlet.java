@@ -9,11 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controller.command.AdminMainCommand;
 import controller.command.AdminProfileCommand;
 import controller.command.Command;
 import controller.command.ConfirmUserCommand;
+import controller.command.ConnectTarifCommand;
+import controller.command.CreateTariffCommand;
 import controller.command.CreateUserCommand;
+import controller.command.DeleteTariffCommand;
 import controller.command.DeleteUserCommand;
+import controller.command.DissconnectTarifCommand;
 import controller.command.EditAdminCommand;
 import controller.command.EditUserCommand;
 import controller.command.ExceptionCommand;
@@ -21,9 +26,11 @@ import controller.command.GetAdminsCommand;
 import controller.command.GetUsersCommand;
 import controller.command.LogOutCommand;
 import controller.command.LoginCommand;
+import controller.command.MainPageCommand;
 import controller.command.RegistrationCommand;
 import controller.command.RemoveAdminProfileCommand;
 import controller.command.RemoveUserProfileCommand;
+import controller.command.UserMainCommand;
 import controller.command.UserProfileCommand;
 
 public class Servlet extends HttpServlet {
@@ -50,7 +57,13 @@ public class Servlet extends HttpServlet {
         commands.put("adminProfile" , new AdminProfileCommand());
         commands.put("editAdmin" , new EditAdminCommand());
         commands.put("removeAdminProfile" , new RemoveAdminProfileCommand());
-        
+        commands.put("main" , new MainPageCommand());
+        commands.put("userMain" , new UserMainCommand());
+        commands.put("connectTarif" , new ConnectTarifCommand());
+        commands.put("dissconnectTarif" , new DissconnectTarifCommand());
+        commands.put("adminMain" , new AdminMainCommand());
+        commands.put("createTarif" , new CreateTariffCommand());
+        commands.put("deleteTarif" , new DeleteTariffCommand());
         
     }
 

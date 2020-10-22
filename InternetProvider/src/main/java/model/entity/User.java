@@ -1,11 +1,14 @@
 package model.entity;
 
+import java.util.List;
+
 public class User {
     
 	private int id;
     private String login;
     private String password;
     private boolean isConfirmed;
+    private List<Tarif> tarifList;
     public enum ROLE {
         USER, ADMIN, UNKNOWN
     }
@@ -63,6 +66,12 @@ public class User {
 				+ " role=" + role + ", isConfirmed= " + isConfirmed +"]\n";
 	}
 
+	public List<Tarif> getTarifList() {
+		return tarifList;
+	}
 
+	public void setTarifList(List<Tarif> tarifList) {
+		this.tarifList = tarifList;
+	}
 	
 }

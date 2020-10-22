@@ -28,12 +28,12 @@ public class LoginCommand implements Command{
                 if (user.getRole().equals(User.ROLE.ADMIN)){
                 	CommandUtility.setUserRole(request, User.ROLE.ADMIN, login);
                 	CommandUtility.setUserAsAttribute(request, user);
-                    return "redirect:/admin/adminbasis.jsp";
+                    return "redirect:/admin/adminMain";
                 } else if(user.getRole().equals(User.ROLE.USER)) {
                 	if(user.getIsConfirmed()) {
                 		CommandUtility.setUserRole(request, User.ROLE.USER, login);
                 		CommandUtility.setUserAsAttribute(request, user);
-                		return "redirect:/user/userbasis.jsp";
+                		return "redirect:/user/userMain";
                 	}
                 	else {
                 		request.setAttribute("message", "Your account is not confirmed by admin. Try again later");

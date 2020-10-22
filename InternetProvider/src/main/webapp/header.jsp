@@ -23,7 +23,7 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><fmt:message key="internet.provider"/></a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/main"><fmt:message key="internet.provider"/></a>
     </div>
     <ul class="navbar-nav">
     <li class="nav-item">

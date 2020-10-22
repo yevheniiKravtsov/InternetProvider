@@ -29,7 +29,29 @@
 	    		<h4>${user.getRole()}</h4>
 	    	</div>
 	  	</div><br>
-	  	<h2>User Tariffs</h2>        
+	  	<h2>User Tariffs</h2>
+	  	<table class ="table table-striped" id="tarifsTable">
+			<thead>		
+				<tr><th>Name</th><th>Description</th><th>Price</th><th>Service</th>
+			</thead>
+			<tbody>
+				<c:forEach var="tarif" items="${user.getTarifList()}">
+					<tr class= "clickable-row">
+						<td>${tarif.getName()}</td>
+						<td>${tarif.getDescription()}</td>
+						<td>${tarif.getPrice()}</td>
+						<td>${tarif.getService().getName()}</td>
+						<td style="text-align: right;"> 
+							<form method="post" action='<c:url value="/user/dissconnectTarif" />' style="display:inline;">
+	        					<input type="hidden" name="tarifId" value="${tarif.getId()}">
+	        					<input type="submit" class="btn btn-danger" value="Dissconnect Tarif">
+	    					</form> 
+    					</td>
+		        		
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>        
 </div>
 </body>
 </html>                                		
