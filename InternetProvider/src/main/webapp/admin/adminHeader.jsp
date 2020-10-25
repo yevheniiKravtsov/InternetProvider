@@ -23,8 +23,18 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/adminMain"><fmt:message key="internet.provider"/></a>
-    </div>
+    </div>   
     <ul class="navbar-nav">
+    <li class="nav-item">
+    	<form class="form-inline" action="${pageContext.request.contextPath}/admin/services">
+    	 	<button class="btn btn-primary" type="submit">Services</button>
+  		</form>
+    </li>
+    <li class="nav-item">
+    	<form class="form-inline" action="${pageContext.request.contextPath}/admin/adminMain">
+    	 	<button class="btn btn-primary" type="submit">Tariffs</button>
+  		</form>
+    </li>
     <li class="nav-item">
     	<form class="form-inline" action="${pageContext.request.contextPath}/admin/users">
     	 	<button class="btn btn-primary" type="submit">Users</button>

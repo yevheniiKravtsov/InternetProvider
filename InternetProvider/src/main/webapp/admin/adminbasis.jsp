@@ -95,6 +95,12 @@
 						<td>${tarif.getPrice()}</td>
 						<td>${tarif.getService().getName()}</td>
 							<td style="text-align: right;"> 
+								<form method="post" action='<c:url value="/admin/editTarif" />' style="display:inline;">
+		        					<input type="hidden" name="tarifId" value="${tarif.getId()}">
+		        					<input type="submit" class="btn btn-primary" value="Edit Tarif">
+		    					</form> 
+	    					</td>
+							<td style="text-align: right;"> 
 								<form method="post" action='<c:url value="/admin/deleteTarif" />' style="display:inline;">
 		        					<input type="hidden" name="tarifId" value="${tarif.getId()}">
 		        					<input type="submit" class="btn btn-danger" value="Delete Tarif">

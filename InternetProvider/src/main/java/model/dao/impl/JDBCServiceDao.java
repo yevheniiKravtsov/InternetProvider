@@ -1,5 +1,6 @@
 package model.dao.impl;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import model.dao.ServiceDao;
 import model.entity.Service;
+import model.entity.Tarif;
 import model.entity.User;
 
 public class JDBCServiceDao implements ServiceDao {
@@ -23,7 +25,21 @@ public class JDBCServiceDao implements ServiceDao {
 
 	@Override
 	public void create(Service entity) {
-		// TODO Auto-generated method stub
+		String sql= "Insert into services (name) Values (?)";
+    	try(PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+    		preparedStatement.setString(1,entity.getName());
+    		preparedStatement.executeUpdate();
+    		try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    entity.setId(generatedKeys.getInt(1));
+                }
+                else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
+    	} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -49,12 +65,26 @@ public class JDBCServiceDao implements ServiceDao {
 
 	@Override
 	public void update(Service entity) {
-		// TODO Auto-generated method stub
+		String sql= "Update services Set name=? Where services.id=?";
+    	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+    		preparedStatement.setString(1,(entity.getName()));
+    		preparedStatement.setInt(2,entity.getId());
+    		preparedStatement.executeUpdate();
+    	} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	@Override
 	public void delete(int id) {
-		
+		String sql= "Delete from services where services.id = ?";
+    	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+    		preparedStatement.setInt(1,id);
+    		preparedStatement.executeUpdate();
+    	} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		
 	}
 
@@ -85,5 +115,5 @@ public class JDBCServiceDao implements ServiceDao {
 		}
     	return list;
 	}
-
+	
 }

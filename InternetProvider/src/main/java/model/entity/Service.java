@@ -6,16 +6,16 @@ public class Service {
 	
 	private int id;
     private String name;
-    private List<Tarif> serviceList;
+    private List<Tarif> tarifList;
     public Service(String name) {
     	this.name=name;
     }
     
     public List<Tarif> getServiceList() {
-		return serviceList;
+		return tarifList;
 	}
 	public void setServiceList(List<Tarif> serviceList) {
-		this.serviceList = serviceList;
+		this.tarifList = serviceList;
 	}
 	public int getId() {
 		return id;

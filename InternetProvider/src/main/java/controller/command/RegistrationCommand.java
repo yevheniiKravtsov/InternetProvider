@@ -15,6 +15,7 @@ public class RegistrationCommand implements Command{
 		String login = request.getParameter("login");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
+        System.out.println("адмін"+login);
         if(login == null || login.equals("") || password == null || password.equals("") ||
         							confirmPassword == null || confirmPassword.equals("") ){
         	request.setAttribute("message", "You have empty fields.");
@@ -40,7 +41,7 @@ public class RegistrationCommand implements Command{
         }
         User user = new User(login,password,User.ROLE.USER,false);
         dao.create(user);
-		return "index.jsp";
+		return "/main";
 	}
 
 }

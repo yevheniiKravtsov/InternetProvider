@@ -7,18 +7,12 @@
 <meta charset="utf-8">
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<jsp:include page="adminHeader.jsp"/>
 <div class="registration-form">
-    <form method="post" action="${pageContext.request.contextPath}/registration" accept-charset="utf-8">
-        <h2 class="text-center">Registration</h2>       
+    <form method="post" action="${pageContext.request.contextPath}/admin/createService">
+        <h2 class="text-center">Create service</h2>       
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Enter username" name="login">
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control" placeholder="Enter password" name="password">
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control" placeholder="Confirm password" name="confirmPassword">
+            <input type="text" class="form-control" placeholder="Enter name" name="name">
         </div>
         <small style="color:red">${message}</small>
         <div class="form-group">

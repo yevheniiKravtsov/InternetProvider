@@ -14,15 +14,20 @@ import controller.command.AdminProfileCommand;
 import controller.command.Command;
 import controller.command.ConfirmUserCommand;
 import controller.command.ConnectTarifCommand;
+import controller.command.CreateServiceCommand;
 import controller.command.CreateTariffCommand;
 import controller.command.CreateUserCommand;
+import controller.command.DeleteServiceCommand;
 import controller.command.DeleteTariffCommand;
 import controller.command.DeleteUserCommand;
 import controller.command.DissconnectTarifCommand;
 import controller.command.EditAdminCommand;
+import controller.command.EditServiceCommand;
+import controller.command.EditTarifCommand;
 import controller.command.EditUserCommand;
 import controller.command.ExceptionCommand;
 import controller.command.GetAdminsCommand;
+import controller.command.GetServicesCommand;
 import controller.command.GetUsersCommand;
 import controller.command.LogOutCommand;
 import controller.command.LoginCommand;
@@ -42,6 +47,7 @@ public class Servlet extends HttpServlet {
 			public String execute(HttpServletRequest request) {
 				return "/index.jsp";
 			}});
+    	commands.put("", new MainPageCommand());
         commands.put("login", new LoginCommand());
         commands.put("logout", new LogOutCommand());
         commands.put("registration", new RegistrationCommand());
@@ -64,7 +70,11 @@ public class Servlet extends HttpServlet {
         commands.put("adminMain" , new AdminMainCommand());
         commands.put("createTarif" , new CreateTariffCommand());
         commands.put("deleteTarif" , new DeleteTariffCommand());
-        
+        commands.put("services" , new GetServicesCommand());
+        commands.put("createService" , new CreateServiceCommand());
+        commands.put("deleteService" , new DeleteServiceCommand());
+        commands.put("editService" , new EditServiceCommand());
+        commands.put("editTarif" , new EditTarifCommand());
     }
 
     public void doGet(HttpServletRequest request,

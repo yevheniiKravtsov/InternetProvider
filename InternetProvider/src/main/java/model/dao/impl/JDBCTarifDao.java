@@ -38,8 +38,29 @@ public class JDBCTarifDao implements TarifDao{
 
 	@Override
 	public Tarif findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Tarif tarif = null;//Optional todo
+    	String sql= "Select * from tarifs inner join services on tarifs.service_id = services.id where tarifs.id=?;";
+    	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+    		preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()){
+				int tarifId = resultSet.getInt(1);
+				String name = resultSet.getString(2);
+				String description = resultSet.getString(3);
+				BigDecimal price = resultSet.getBigDecimal(4);
+				int servId  = resultSet.getInt(6);
+				String servName  = resultSet.getString(7);
+				Service service = new Service(servName);
+				service.setId(servId);
+				tarif = new Tarif(name, description, price);
+				tarif.setId(tarifId);
+				tarif.setService(service);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return tarif;
 	}
 
 	@Override
@@ -183,8 +204,17 @@ public class JDBCTarifDao implements TarifDao{
 	
 	@Override
 	public void update(Tarif entity) {
-		// TODO Auto-generated method stub
-		
+		String sql= "Update tarifs Set name=?, description=?, price=?, service_id=? Where tarifs.id=?";
+    	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+    		preparedStatement.setString(1,(entity.getName()));
+    		preparedStatement.setString(2,(entity.getDescription()));
+    		preparedStatement.setBigDecimal(3,(entity.getPrice()));
+    		preparedStatement.setInt(4,(entity.getService().getId()));
+    		preparedStatement.setInt(5,entity.getId());
+    		preparedStatement.executeUpdate();
+    	} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
