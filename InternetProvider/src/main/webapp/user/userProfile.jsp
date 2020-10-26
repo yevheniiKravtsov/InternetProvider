@@ -16,17 +16,31 @@
 		</div>
 		<br><br>
 		<div class="row justify-content-start">
-	    	<div class="col-4">
-	    		<label>User ID:</label>
-	    		<h4>${user.getId()}</h4>
-	    	</div>
-	    	<div class="col-4">
-	      		<label>User name:</label>
+	    	<div class="col-3">
+	    		<label>Username:</label>
 	    		<h4>${user.getLogin()}</h4>
 	    	</div>
-	    	<div class="col-4">
+	    	<div class="col-3">
 	      		<label>User role:</label>
 	    		<h4>${user.getRole()}</h4>
+	    	</div>
+	    	<div class="col-3">
+	      		<label>User state:</label>
+	      		<c:choose>
+    				<c:when test="${user.getIsBlocked().equals(true)}">
+         				<h4 style="color:red">Blocked</h4>
+    				</c:when>     				
+	    			<c:otherwise>
+	        			<h4 style="color:green">Active</h4>
+	        		</c:otherwise>
+				</c:choose>
+	    	</div>
+	    	<div class="col-3">
+	      		<label>User account:</label>
+	    		<h4>${user.getAccount()}</h4>
+				<form method="post" action='<c:url value="/user/editAccount" />' style="display:inline;">
+   					<input type="submit" class="btn btn-success" value="Account Updating">
+				</form> 
 	    	</div>
 	  	</div><br>
 	  	<h2>User Tariffs</h2>

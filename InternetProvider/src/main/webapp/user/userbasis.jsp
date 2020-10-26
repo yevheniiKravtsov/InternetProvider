@@ -76,6 +76,7 @@
 	    	</div>
 	    </div>
 	  </form><br>
+	  <small style="color:red">${message}</small>
 	  <table class ="table table-striped" id="tarifsTable">
 			<thead>		
 				<tr><th>Name</th><th>Description</th><th>Price</th><th>Service</th>

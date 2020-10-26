@@ -24,12 +24,14 @@ public class JDBCUserDao implements UserDao {
 
 	@Override
 	public void create(User entity) {
-		String sql= "Insert into users (login, password, role, confirmation) Values (?,?,?,?)";
+		String sql= "Insert into users (login, password, role, confirmation, blocked, account) Values (?,?,?,?,?,?)";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
     		preparedStatement.setString(1,entity.getLogin());
     		preparedStatement.setString(2,entity.getPassword());
     		preparedStatement.setString(3,entity.getRole().toString());
     		preparedStatement.setBoolean(4,entity.getIsConfirmed());
+    		preparedStatement.setBoolean(5,entity.getIsBlocked());
+    		preparedStatement.setBigDecimal(6,entity.getAccount());
     		preparedStatement.executeUpdate();
     		try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -110,8 +112,12 @@ public class JDBCUserDao implements UserDao {
 				String password = resultSet.getString(3);
 				User.ROLE role = User.ROLE.valueOf(resultSet.getString(4));
 				boolean isConfirmed = resultSet.getBoolean(5);
+				boolean isBlocked = resultSet.getBoolean(6);
+				BigDecimal account = resultSet.getBigDecimal(7);
 				user = new User(login, password, role,isConfirmed);
 				user.setId(userId);
+				user.setAccount(account);
+				user.setIsBlocked(isBlocked);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -132,8 +138,12 @@ public class JDBCUserDao implements UserDao {
 				String password = resultSet.getString(3);
 				User.ROLE userRole = User.ROLE.valueOf(resultSet.getString(4));
 				boolean isConfirmed = resultSet.getBoolean(5);
+				boolean isBlocked = resultSet.getBoolean(6);
+				BigDecimal account = resultSet.getBigDecimal(7);
 				User user = new User(login, password, userRole, isConfirmed);
 				user.setId(id);
+				user.setAccount(account);
+				user.setIsBlocked(isBlocked);
 				list.add(user);
 			}
 		} catch (SQLException e) {
@@ -155,8 +165,12 @@ public class JDBCUserDao implements UserDao {
 				String password = resultSet.getString(3);
 				User.ROLE userRole = User.ROLE.valueOf(resultSet.getString(4));
 				boolean isConfirmed = resultSet.getBoolean(5);
+				boolean isBlocked = resultSet.getBoolean(6);
+				BigDecimal account = resultSet.getBigDecimal(7);
 				User user = new User(login, password, userRole, isConfirmed);
 				user.setId(id);
+				user.setAccount(account);
+				user.setIsBlocked(isBlocked);
 				list.add(user);
 			}
 		} catch (SQLException e) {
@@ -179,8 +193,12 @@ public class JDBCUserDao implements UserDao {
 				String password = resultSet.getString(3);
 				User.ROLE role = User.ROLE.valueOf(resultSet.getString(4));
 				boolean isConfirmed = resultSet.getBoolean(5);
+				boolean isBlocked = resultSet.getBoolean(6);
+				BigDecimal account = resultSet.getBigDecimal(7);
 				User user = new User(login, password, role, isConfirmed);
 				user.setId(id);
+				user.setAccount(account);
+				user.setIsBlocked(isBlocked);
 				list.add(user);
 			}
 		} catch (SQLException e) {
@@ -192,13 +210,16 @@ public class JDBCUserDao implements UserDao {
 
 	@Override
 	public void update(User entity) {
-		String sql= "Update users Set login=?, password=?, role=?, confirmation=? Where users.id=?";
+		String sql= "Update users Set login=?, password=?, role=?, confirmation=?, blocked=?,account=? Where users.id=?";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
     		preparedStatement.setString(1,(entity.getLogin()));
     		preparedStatement.setString(2,(entity.getPassword()));
     		preparedStatement.setString(3,(entity.getRole().toString()));
     		preparedStatement.setBoolean(4,(entity.getIsConfirmed()));
-    		preparedStatement.setInt(5,entity.getId());
+    		preparedStatement.setBoolean(5,(entity.getIsBlocked()));
+    		preparedStatement.setBigDecimal(6,(entity.getAccount()));
+    		preparedStatement.setInt(7,entity.getId());
+    		
     		preparedStatement.executeUpdate();
     	} catch (SQLException e) {
 			e.printStackTrace();

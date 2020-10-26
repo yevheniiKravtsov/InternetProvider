@@ -1,5 +1,6 @@
 package model.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class User {
@@ -9,6 +10,8 @@ public class User {
     private String password;
     private boolean isConfirmed;
     private List<Tarif> tarifList;
+    private BigDecimal account;
+    private boolean isBlocked;
     public enum ROLE {
         USER, ADMIN, UNKNOWN
     }
@@ -19,7 +22,26 @@ public class User {
 		this.password = password;
 		this.role = role;
 		this.isConfirmed = isConfirmed;
+		this.account = BigDecimal.valueOf(0);
+		this.isBlocked=false;
 	}
+    
+    public BigDecimal getAccount() {
+		return account;
+	}
+
+	public void setAccount(BigDecimal account) {
+		this.account = account;
+	}
+
+	public boolean getIsBlocked() {
+		return isBlocked;
+	}
+
+	public void setIsBlocked(boolean isBlocked) {
+		this.isBlocked = isBlocked;
+	}
+
 
 	public int getId() {
 		return id;

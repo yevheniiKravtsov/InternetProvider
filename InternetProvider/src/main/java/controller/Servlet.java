@@ -21,6 +21,7 @@ import controller.command.DeleteServiceCommand;
 import controller.command.DeleteTariffCommand;
 import controller.command.DeleteUserCommand;
 import controller.command.DissconnectTarifCommand;
+import controller.command.EditAccountCommand;
 import controller.command.EditAdminCommand;
 import controller.command.EditServiceCommand;
 import controller.command.EditTarifCommand;
@@ -75,6 +76,7 @@ public class Servlet extends HttpServlet {
         commands.put("deleteService" , new DeleteServiceCommand());
         commands.put("editService" , new EditServiceCommand());
         commands.put("editTarif" , new EditTarifCommand());
+        commands.put("editAccount" , new EditAccountCommand());
     }
 
     public void doGet(HttpServletRequest request,
