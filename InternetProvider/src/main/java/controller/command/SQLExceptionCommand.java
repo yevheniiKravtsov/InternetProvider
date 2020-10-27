@@ -2,12 +2,12 @@ package controller.command;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ExceptionCommand implements Command {
+public class SQLExceptionCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request) {
 		
-		request.setAttribute("message","Error");
+		request.setAttribute("message", "Data Base Exception");
 		return "exception.jsp";
 	
 	}

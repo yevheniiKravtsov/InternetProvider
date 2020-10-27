@@ -27,6 +27,11 @@
     </div>
     <ul class="navbar-nav">
     <li class="nav-item">
+    	<form class="form-inline" action="${pageContext.request.contextPath}/user/userMain">
+    	 	<button class="btn btn-primary" type="submit">Tariffs</button>
+  		</form>
+    </li>
+    <li class="nav-item">
     	<form class="form-inline" action="${pageContext.request.contextPath}/user/userProfile">
     	 	<button class="btn btn-primary" type="submit">My profile</button>
   		</form>
@@ -48,11 +53,11 @@
 		</c:choose>
       </a>
       <div class="dropdown-menu">
-        <form class="form-inline" action="${pageContext.request.requestURI}">
+        <form class="form-inline" action="${pageContext.request.contextPath}/user/userMain">
     		<input type="hidden" value="en" name="localization"/>
     	 	<button type="submit" class="btn btn-outline-primary">EN</button>
   		</form>
-  		<form class="form-inline" action="${pageContext.request.requestURI}">
+  		<form class="form-inline" action="${pageContext.request.contextPath}/user/userMain"">
     		<input type="hidden" value="ua" name="localization"/>
     	 	<button type="submit" class="btn btn-outline-primary">UA</button>
   		</form>

@@ -62,11 +62,11 @@
 		</c:choose>
       </a>
       <div class="dropdown-menu">
-        <form class="form-inline" action="${pageContext.request.requestURI}">
+        <form class="form-inline" action="${pageContext.request.contextPath}/admin/adminMain">
     		<input type="hidden" value="en" name="localization"/>
     	 	<button type="submit" class="btn btn-outline-primary">EN</button>
   		</form>
-  		<form class="form-inline" action="${pageContext.request.requestURI}">
+  		<form class="form-inline" action="${pageContext.request.contextPath}/admin/adminMain">
     		<input type="hidden" value="ua" name="localization"/>
     	 	<button type="submit" class="btn btn-outline-primary">UA</button>
   		</form>

@@ -1,6 +1,5 @@
 package model.dao.impl;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,8 +10,6 @@ import java.util.List;
 
 import model.dao.ServiceDao;
 import model.entity.Service;
-import model.entity.Tarif;
-import model.entity.User;
 
 public class JDBCServiceDao implements ServiceDao {
 
@@ -24,7 +21,7 @@ public class JDBCServiceDao implements ServiceDao {
 
 
 	@Override
-	public void create(Service entity) {
+	public void create(Service entity) throws SQLException{
 		String sql= "Insert into services (name) Values (?)";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
     		preparedStatement.setString(1,entity.getName());
@@ -38,13 +35,13 @@ public class JDBCServiceDao implements ServiceDao {
                 }
             }
     	} catch (SQLException e) {
-			e.printStackTrace();
+    		throw new SQLException(e);
 		}
 		
 	}
 
 	@Override
-	public Service findById(int id) {
+	public Service findById(int id) throws SQLException{
 		Service service = null;
     	String sql= "Select * from services where services.id = ?";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -57,46 +54,43 @@ public class JDBCServiceDao implements ServiceDao {
 				service.setId(servId);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException(e);
 		}
     	return service;
 	}
 
 	@Override
-	public void update(Service entity) {
+	public void update(Service entity) throws SQLException{
 		String sql= "Update services Set name=? Where services.id=?";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
     		preparedStatement.setString(1,(entity.getName()));
     		preparedStatement.setInt(2,entity.getId());
     		preparedStatement.executeUpdate();
     	} catch (SQLException e) {
-			e.printStackTrace();
+    		throw new SQLException(e);
 		}
 		
 	}
 	@Override
-	public void delete(int id) {
+	public void delete(int id) throws SQLException{
 		String sql= "Delete from services where services.id = ?";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
     		preparedStatement.setInt(1,id);
     		preparedStatement.executeUpdate();
     	} catch (SQLException e) {
-			e.printStackTrace();
+    		throw new SQLException(e);
 		}
 
 		
 	}
 
 	@Override
-	public void close() throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void close() throws Exception {	
 	}
 
 
 	@Override
-	public List<Service> findAll() {
+	public List<Service> findAll() throws SQLException {
 		List<Service> list = new ArrayList<>();
     	Statement statement;
 		try {
@@ -110,10 +104,8 @@ public class JDBCServiceDao implements ServiceDao {
 				list.add(service);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException();
 		}
     	return list;
 	}
-	
 }

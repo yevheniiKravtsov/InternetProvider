@@ -2,12 +2,12 @@ package controller.command;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ExceptionCommand implements Command {
+public class NotFoundExceptionCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request) {
 		
-		request.setAttribute("message","Error");
+		request.setAttribute("message", "HTTP Status 404 - Not Found");
 		return "exception.jsp";
 	
 	}

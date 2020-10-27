@@ -6,9 +6,9 @@ public abstract class DaoFactory {
 
 	private static DaoFactory daoFactory;
 
-	public abstract UserDao createUserDao();
-	public abstract ServiceDao createServiceDao();
-	public abstract TarifDao createTarifDao();
+	public abstract UserDao createUserDao() throws Exception;
+	public abstract ServiceDao createServiceDao() throws Exception;
+	public abstract TarifDao createTarifDao() throws Exception;
     public static DaoFactory getInstance(){
             if( daoFactory == null ){
                 synchronized (DaoFactory.class){

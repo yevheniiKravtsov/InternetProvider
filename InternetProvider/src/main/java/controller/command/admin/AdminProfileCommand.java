@@ -1,6 +1,8 @@
-package controller.command;
+package controller.command.admin;
 
 import javax.servlet.http.HttpServletRequest;
+
+import controller.command.Command;
 
 public class AdminProfileCommand implements Command{
 

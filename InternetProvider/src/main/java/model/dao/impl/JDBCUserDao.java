@@ -23,7 +23,7 @@ public class JDBCUserDao implements UserDao {
     }
 
 	@Override
-	public void create(User entity) {
+	public void create(User entity) throws SQLException{
 		String sql= "Insert into users (login, password, role, confirmation, blocked, account) Values (?,?,?,?,?,?)";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
     		preparedStatement.setString(1,entity.getLogin());
@@ -42,34 +42,34 @@ public class JDBCUserDao implements UserDao {
                 }
             }
     	} catch (SQLException e) {
-			e.printStackTrace();
+    		throw new SQLException();
 		}		
 	}
 
 	
-	public void insertIntoUsersTarifs(int userId, int tarifId) {
+	public void insertIntoUsersTarifs(int userId, int tarifId) throws SQLException{
 		String sql= "Insert into users_tarifs (user_id, tarif_id) Values (?,?)";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
     		preparedStatement.setInt(1,userId);
     		preparedStatement.setInt(2,tarifId);
     		preparedStatement.executeUpdate();
     	} catch (SQLException e) {
-			e.printStackTrace();
+    		throw new SQLException();
 		}		
 	}
 	
-	public void removeFromUsersTarifs(int userId, int tarifId) {
+	public void removeFromUsersTarifs(int userId, int tarifId) throws SQLException{
 		String sql= "Delete from users_tarifs where user_id = ? AND tarif_id=?";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
     		preparedStatement.setInt(1,userId);
     		preparedStatement.setInt(2,tarifId);
     		preparedStatement.executeUpdate();
     	} catch (SQLException e) {
-			e.printStackTrace();
+    		throw new SQLException(e);
 		}
 		
 	}
-	public User findTarifsForUser(User user) {
+	public User findTarifsForUser(User user) throws SQLException{
 		
 		List<Tarif> list = new ArrayList<>();
     	String sql= "select * from users_tarifs inner join tarifs on users_tarifs.tarif_id =tarifs.id\r\n" + 
@@ -93,14 +93,13 @@ public class JDBCUserDao implements UserDao {
 			}
 			user.setTarifList(list);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException(e);
 		}
     	return user;
 	}
 	
-	@Override//Optinal todo!
-	public User findById(int id) {
+	@Override
+	public User findById(int id) throws SQLException{
 		User user = null;
     	String sql= "Select * from users where users.id = ?";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -120,13 +119,12 @@ public class JDBCUserDao implements UserDao {
 				user.setIsBlocked(isBlocked);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException(e);
 		}
     	return user;
 	}
 	
-	public List<User> findAllByRole(User.ROLE role) {
+	public List<User> findAllByRole(User.ROLE role) throws SQLException{
 		List<User> list = new ArrayList<>();
     	String sql= "Select * from users where users.role = ? order by id DESC";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -147,13 +145,12 @@ public class JDBCUserDao implements UserDao {
 				list.add(user);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException(e);
 		}
     	return list;
 	}
 	
-	public List<User> findAllByConfirmation(boolean confirmation) {
+	public List<User> findAllByConfirmation(boolean confirmation) throws SQLException{
 		List<User> list = new ArrayList<>();
     	String sql= "Select * from users where users.confirmation = ?";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -174,14 +171,13 @@ public class JDBCUserDao implements UserDao {
 				list.add(user);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException(e);
 		}
     	return list;
 	}
 
 	@Override
-	public List<User> findAll() {
+	public List<User> findAll() throws SQLException{
 		List<User> list = new ArrayList<>();
     	Statement statement;
 		try {
@@ -202,14 +198,13 @@ public class JDBCUserDao implements UserDao {
 				list.add(user);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException(e);
 		}
     	return list;
 	}
 
 	@Override
-	public void update(User entity) {
+	public void update(User entity) throws SQLException{
 		String sql= "Update users Set login=?, password=?, role=?, confirmation=?, blocked=?,account=? Where users.id=?";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
     		preparedStatement.setString(1,(entity.getLogin()));
@@ -222,25 +217,23 @@ public class JDBCUserDao implements UserDao {
     		
     		preparedStatement.executeUpdate();
     	} catch (SQLException e) {
-			e.printStackTrace();
+    		throw new SQLException(e);
 		}
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int id) throws SQLException{
 		String sql= "Delete from users where users.id = ?";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
     		preparedStatement.setInt(1,id);
     		preparedStatement.executeUpdate();
     	} catch (SQLException e) {
-			e.printStackTrace();
+    		throw new SQLException(e);
 		}
 		
 	}
 
 	@Override
 	public void close() throws Exception {
-		// TODO Auto-generated method stub
-		
 	}
 }

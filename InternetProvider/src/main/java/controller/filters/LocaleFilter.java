@@ -28,7 +28,7 @@ public class LocaleFilter implements Filter{
 	      	if (req.getParameter("localization") != null) {
 	            req.getSession().setAttribute("lang", req.getParameter("localization"));
 	        }
-	      	System.out.println(req.getSession().getAttribute("lang"));
+	      	
 	        chain.doFilter(request, response);
 	       
 		} catch (IOException e) { 

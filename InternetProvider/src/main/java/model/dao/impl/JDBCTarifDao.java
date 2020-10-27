@@ -21,7 +21,7 @@ public class JDBCTarifDao implements TarifDao{
     }
     
 	@Override
-	public void create(Tarif entity) {
+	public void create(Tarif entity) throws SQLException{
 		String sql= "Insert into tarifs (name, description, price, service_id) Values (?,?,?,?)";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
     		preparedStatement.setString(1,entity.getName());
@@ -31,14 +31,14 @@ public class JDBCTarifDao implements TarifDao{
     		preparedStatement.executeUpdate();
     		
     	} catch (SQLException e) {
-			e.printStackTrace();
+    		throw new  SQLException();
 		}
 		
 	}
 
 	@Override
-	public Tarif findById(int id) {
-		Tarif tarif = null;//Optional todo
+	public Tarif findById(int id) throws SQLException {
+		Tarif tarif = null;
     	String sql= "Select * from tarifs inner join services on tarifs.service_id = services.id where tarifs.id=?;";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
     		preparedStatement.setInt(1, id);
@@ -57,14 +57,13 @@ public class JDBCTarifDao implements TarifDao{
 				tarif.setService(service);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException();
 		}
     	return tarif;
 	}
 
 	@Override
-	public List<Tarif> findAll() {
+	public List<Tarif> findAll() throws SQLException{
 		List<Tarif> list = new ArrayList<>();
     	Statement statement;
 		try {
@@ -85,13 +84,12 @@ public class JDBCTarifDao implements TarifDao{
 				list.add(tarif);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException(e);
 		}
     	return list;
 	}
 	
-	public List<Tarif> findAllByServiceId(int serviceId) {
+	public List<Tarif> findAllByServiceId(int serviceId) throws SQLException{
 		List<Tarif> list = new ArrayList<>();
     	
     	String sql= "Select * from tarifs inner join services on tarifs.service_id = services.id where tarifs.service_id=?;";
@@ -113,13 +111,12 @@ public class JDBCTarifDao implements TarifDao{
 				list.add(tarif);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException(e);
 		}
     	return list;
 	}
 	
-	public List<Tarif> findSortedByNameASCWithServiceId(int serviceId) {
+	public List<Tarif> findSortedByNameASCWithServiceId(int serviceId) throws SQLException{
 		List<Tarif> list = new ArrayList<>();
     	
     	String sql= "Select * from tarifs inner join services on tarifs.service_id = services.id where tarifs.service_id=? order by tarifs.name ASC;";
@@ -141,12 +138,11 @@ public class JDBCTarifDao implements TarifDao{
 				list.add(tarif);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException(e);
 		}
     	return list;
 	}
-	public List<Tarif> findSortedByNameDESCWithServiceId(int serviceId) {
+	public List<Tarif> findSortedByNameDESCWithServiceId(int serviceId) throws SQLException{
 		List<Tarif> list = new ArrayList<>();
     	
     	String sql= "Select * from tarifs inner join services on tarifs.service_id = services.id where tarifs.service_id=? order by tarifs.name DESC;";
@@ -168,12 +164,11 @@ public class JDBCTarifDao implements TarifDao{
 				list.add(tarif);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new SQLException(e);
 		}
     	return list;
 	}
-	public List<Tarif> findSortedByPriceWithServiceId(int serviceId) {
+	public List<Tarif> findSortedByPriceWithServiceId(int serviceId) throws SQLException{
 		List<Tarif> list = new ArrayList<>();
     	
     	String sql= "Select * from tarifs inner join services on tarifs.service_id = services.id where tarifs.service_id=? order by tarifs.price;";
@@ -195,15 +190,14 @@ public class JDBCTarifDao implements TarifDao{
 				list.add(tarif);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new  SQLException(e);
 		}
     	return list;
 	}
 
 	
 	@Override
-	public void update(Tarif entity) {
+	public void update(Tarif entity) throws SQLException{
 		String sql= "Update tarifs Set name=?, description=?, price=?, service_id=? Where tarifs.id=?";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
     		preparedStatement.setString(1,(entity.getName()));
@@ -213,25 +207,23 @@ public class JDBCTarifDao implements TarifDao{
     		preparedStatement.setInt(5,entity.getId());
     		preparedStatement.executeUpdate();
     	} catch (SQLException e) {
-			e.printStackTrace();
+    		throw new SQLException(e);
 		}
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int id) throws SQLException{
 		String sql= "Delete from tarifs where tarifs.id = ?";
     	try(PreparedStatement preparedStatement = connection.prepareStatement(sql)){
     		preparedStatement.setInt(1,id);
     		preparedStatement.executeUpdate();
     	} catch (SQLException e) {
-			e.printStackTrace();
+    		throw new SQLException(e);
 		}
 	}
 
 	@Override
 	public void close() throws Exception {
-		// TODO Auto-generated method stub
-		
 	}
 
 	

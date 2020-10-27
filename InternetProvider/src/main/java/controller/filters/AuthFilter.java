@@ -32,8 +32,6 @@ public class AuthFilter implements Filter{
 	        	session.setAttribute("role", User.ROLE.UNKNOWN);
 	        }
 	        ServletContext context = request.getServletContext();
-	        System.out.println(session.getAttribute("role"));
-	        System.out.println(context.getAttribute("login"));
 	        
 	        if(req.getRequestURI().contains("/admin/")) {
 	        	if(session.getAttribute("role").equals(User.ROLE.ADMIN)) {
